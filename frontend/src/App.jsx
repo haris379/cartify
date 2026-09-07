@@ -1,0 +1,62 @@
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import ProductDetails from "./Pages/productDetails";
+import ProductList from "./admin/ProductList";
+import AddPrduct from "./admin/AddPrduct";
+import EditProduct from "./admin/EditProduct";
+import AdminLogin from "./admin/AdminLogin";
+import AdminProtectedRoute from "./admin/AdminProtectedRoute";
+import Navbar from "./components/Navbar";
+import Cart from "./Pages/Cart";
+import CheckoutAddress from "./Pages/CheckoutAddress";
+import Checkout from "./Pages/Checkout";
+import OrderSuccess from "./Pages/OrderSuccess";
+import Footer from "./components/Footer";
+
+function Layout() {
+  return (
+    <>
+      <Navbar />
+      <div className="min-h-[70vh]">
+        <Outlet />
+      </div>
+      <Footer />
+    </>
+  );
+}
+
+const routerPath = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/signup", element: <Signup /> },
+      { path: "/login", element: <Login /> },
+      { path: "/product/:id", element: <ProductDetails /> },
+      { path: "/cart", element: <Cart /> },
+
+      { path: "/checkout-address", element: <CheckoutAddress /> },
+      { path: "/checkout", element: <Checkout /> },
+      { path: "/order-success/:id", element: <OrderSuccess /> },
+      { path: "/admin/login", element: <AdminLogin /> },
+    ],
+  },
+
+  // Admin login has no shell (no shopper navbar, no admin navbar)
+
+  // Everything else under /admin is gated behind AdminProtectedRoute
+  {
+    element: <AdminProtectedRoute />,
+    children: [
+      { path: "/admin/products", element: <ProductList /> },
+      { path: "/admin/products/add", element: <AddPrduct /> },
+      { path: "/admin/products/update/:id", element: <EditProduct /> },
+    ],
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={routerPath} />;
+}
