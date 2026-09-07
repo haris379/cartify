@@ -22,10 +22,8 @@ const Signup = () => {
     try {
       const response = await api.post("/auth/signup", form);
       setMsg(response.data.message);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.user.id);
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 1000);
     } catch (error) {
       setMsg(error.response?.data?.message || "An error occurred");
