@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import api from "../api/axios.js";
-import { Link } from "react-router";
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -8,6 +8,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
   const [msg, setMsg] = useState("");
 
   const handleChange = (e) => {
@@ -21,6 +22,9 @@ const Signup = () => {
     try {
       const response = await api.post("/auth/signup", form);
       setMsg(response.data.message);
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     } catch (error) {
       setMsg(error.response?.data?.message || "An error occurred");
     }
