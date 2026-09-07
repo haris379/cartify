@@ -22,6 +22,8 @@ const Signup = () => {
     try {
       const response = await api.post("/auth/signup", form);
       setMsg(response.data.message);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.user.id);
       setTimeout(() => {
         navigate("/");
       }, 1000);
