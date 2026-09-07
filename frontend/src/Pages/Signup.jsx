@@ -23,7 +23,7 @@ const Signup = () => {
       const response = await api.post("/auth/signup", form);
       setMsg(response.data.message);
       setTimeout(() => {
-        navigate("/login");
+        navigate("/");
       }, 1000);
     } catch (error) {
       setMsg(error.response?.data?.message || "An error occurred");
