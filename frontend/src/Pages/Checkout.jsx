@@ -55,7 +55,7 @@ const Checkout = () => {
   if (address.length === 0) {
     return (
       <div className="page-shell text-center text-ink-soft">
-        <p>No delivery address.</p>
+        <p>No delivery address found.</p>
         <p className="mt-2">Redirecting you to add an address...</p>
       </div>
     );
